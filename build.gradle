@@ -21,7 +21,7 @@ repositories {
 }
 
 dependencies {
-	compile project(":searchEngineCrawler")
+	compile project(":halCrawler")
 	compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.12'
 }
 

@@ -28,7 +28,7 @@ public class CrawlSite {
 		SiteDatabase db = (SiteDatabase) new SiteDatabaseImpl(new HeaderDatabase().connect(),
 			new TextContentDatabase().connect(), new EmphasizedTextDatabase().connect()).connect();
 		BaseHttpWebCrawler crawler = new BaseHttpWebCrawler(db, new AnchorDatabase().connect(),
-			new ConcurrentHttpFetcher(10));
+			new ConcurrentHttpFetcher(1));
 		crawler.setCrawlChecker(new URLCrawlChecker(db));
 		crawler.limitToHost(true);
 		crawler.registerProcessor("a", new ALinkTagProcessor());

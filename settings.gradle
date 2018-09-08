@@ -17,5 +17,5 @@ include 'services:webservice'
 
 rootProject.name = 'testWebCrawler'
 
-include ":searchEngineCrawler"
-project(":searchEngineCrawler").projectDir = file("../../git/searchEngineCrawler")
+include ":halCrawler"
+project(":halCrawler").projectDir = file("../HalCrawler")
