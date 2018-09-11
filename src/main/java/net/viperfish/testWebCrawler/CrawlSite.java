@@ -17,8 +17,7 @@ import net.viperfish.crawler.engines.ConcurrentHttpFetcher;
 import net.viperfish.crawler.html.tagProcessors.ALinkTagProcessor;
 import net.viperfish.crawler.html.tagProcessors.EmphasizedTagProcessor;
 import net.viperfish.crawler.html.tagProcessors.HeaderTagProcessor;
-import net.viperfish.crawler.html.tagProcessors.TextAllTagProcessor;
-import net.viperfish.crawler.html.tagProcessors.TextOwnTagsProcessor;
+import net.viperfish.crawler.html.tagProcessors.TextSectionProcessor;
 import net.viperfish.crawler.html.tagProcessors.TitileTagProcessor;
 
 public class CrawlSite {
@@ -33,14 +32,14 @@ public class CrawlSite {
 		crawler.limitToHost(true);
 		crawler.registerProcessor("a", new ALinkTagProcessor());
 		crawler.registerProcessor("title", new TitileTagProcessor());
-		crawler.registerProcessor("p", new TextAllTagProcessor());
-		crawler.registerProcessor("div", new TextOwnTagsProcessor());
-		crawler.registerProcessor("blockquote", new TextOwnTagsProcessor());
-		crawler.registerProcessor("ul", new TextAllTagProcessor());
-		crawler.registerProcessor("ol", new TextAllTagProcessor());
-		crawler.registerProcessor("pre", new TextOwnTagsProcessor());
-		crawler.registerProcessor("dl", new TextAllTagProcessor());
-		crawler.registerProcessor("table", new TextAllTagProcessor());
+		crawler.registerProcessor("p", new TextSectionProcessor());
+		crawler.registerProcessor("div", new TextSectionProcessor());
+		crawler.registerProcessor("blockquote", new TextSectionProcessor());
+		crawler.registerProcessor("ul", new TextSectionProcessor());
+		crawler.registerProcessor("ol", new TextSectionProcessor());
+		crawler.registerProcessor("pre", new TextSectionProcessor());
+		crawler.registerProcessor("dl", new TextSectionProcessor());
+		crawler.registerProcessor("table", new TextSectionProcessor());
 		crawler.registerProcessor("h1", new HeaderTagProcessor());
 		crawler.registerProcessor("h2", new HeaderTagProcessor());
 		crawler.registerProcessor("h3", new HeaderTagProcessor());
