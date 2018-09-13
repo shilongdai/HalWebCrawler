@@ -2,44 +2,31 @@ package net.viperfish.testWebCrawler;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
-import net.viperfish.crawler.base.BaseHttpWebCrawler;
-import net.viperfish.crawler.core.Site;
-import net.viperfish.crawler.core.SiteDatabase;
-import net.viperfish.crawler.crawlChecker.URLCrawlChecker;
-import net.viperfish.crawler.dao.AnchorDatabase;
-import net.viperfish.crawler.dao.EmphasizedTextDatabase;
-import net.viperfish.crawler.dao.HeaderDatabase;
-import net.viperfish.crawler.dao.ORMLiteDatabase;
-import net.viperfish.crawler.dao.SiteDatabaseImpl;
-import net.viperfish.crawler.dao.TextContentDatabase;
-import net.viperfish.crawler.engines.ConcurrentHttpFetcher;
+import net.viperfish.crawler.html.BaseHttpWebCrawler;
+import net.viperfish.crawler.html.engine.ConcurrentHttpFetcher;
 import net.viperfish.crawler.html.tagProcessors.ALinkTagProcessor;
 import net.viperfish.crawler.html.tagProcessors.EmphasizedTagProcessor;
 import net.viperfish.crawler.html.tagProcessors.HeaderTagProcessor;
 import net.viperfish.crawler.html.tagProcessors.TextSectionProcessor;
 import net.viperfish.crawler.html.tagProcessors.TitileTagProcessor;
+import xmlDao.XMLDataSink;
 
 public class CrawlSite {
 
-	public static void main(String argv[]) throws SQLException, IOException {
-		ORMLiteDatabase.connect(argv[1], argv[2], argv[3]);
-		SiteDatabase db = (SiteDatabase) new SiteDatabaseImpl(new HeaderDatabase().connect(),
-			new TextContentDatabase().connect(), new EmphasizedTextDatabase().connect()).connect();
-		BaseHttpWebCrawler crawler = new BaseHttpWebCrawler(db, new AnchorDatabase().connect(),
+	public static void main(String argv[]) throws IOException, InterruptedException {
+		XMLDataSink out = new XMLDataSink("out");
+		out.init();
+		BaseHttpWebCrawler crawler = new BaseHttpWebCrawler(out,
 			new ConcurrentHttpFetcher(1));
-		crawler.setCrawlChecker(new URLCrawlChecker(db));
+		crawler.setCrawlChecker(new InMemoryCrawlChecker());
 		crawler.limitToHost(true);
 		crawler.registerProcessor("a", new ALinkTagProcessor());
 		crawler.registerProcessor("title", new TitileTagProcessor());
 		crawler.registerProcessor("p", new TextSectionProcessor());
 		crawler.registerProcessor("div", new TextSectionProcessor());
 		crawler.registerProcessor("blockquote", new TextSectionProcessor());
-		crawler.registerProcessor("ul", new TextSectionProcessor());
-		crawler.registerProcessor("ol", new TextSectionProcessor());
 		crawler.registerProcessor("pre", new TextSectionProcessor());
 		crawler.registerProcessor("dl", new TextSectionProcessor());
-		crawler.registerProcessor("table", new TextSectionProcessor());
 		crawler.registerProcessor("h1", new HeaderTagProcessor());
 		crawler.registerProcessor("h2", new HeaderTagProcessor());
 		crawler.registerProcessor("h3", new HeaderTagProcessor());
@@ -51,27 +38,9 @@ public class CrawlSite {
 		crawler.registerProcessor("b", new EmphasizedTagProcessor());
 		crawler.registerProcessor("strong", new EmphasizedTagProcessor());
 		crawler.submit(new URL(argv[0]));
-		try {
-			Thread.sleep(500);
-		} catch (InterruptedException e1) {
-			return;
-		}
-		while (!crawler.isIdle()) {
-			Long crawledID;
-			try {
-				crawledID = crawler.getResults().take();
-			} catch (InterruptedException e) {
-				return;
-			}
-			Site crawled = db.find(crawledID);
-			if (crawled == null) {
-				System.out.println("Crawled ID Not in DB:" + crawledID);
-				continue;
-			}
-			System.out.println("Crawled:" + crawled.getUrl());
-		}
+		crawler.startCrawl();
+		crawler.waitUntiDone();
 		crawler.shutdown();
-		ORMLiteDatabase.closeConn();
 	}
 
 }
