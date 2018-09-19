@@ -135,15 +135,12 @@ public class XMLDataSink implements Datasink<Site> {
 		Element result = new Element("anchor");
 		Element anchorText = new Element("text");
 		Element targetURL = new Element("target");
-		Element sourceID = new Element("source");
 
 		anchorText.setContent(new CDATA(anchor.getAnchorText()));
 		targetURL.setContent(new CDATA(anchor.getTargetURL().toExternalForm()));
-		sourceID.setContent(new Text(Long.toString(anchor.getSiteID())));
 
 		result.addContent(anchorText);
 		result.addContent(targetURL);
-		result.addContent(sourceID);
 		return result;
 	}
 
