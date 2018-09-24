@@ -2,7 +2,7 @@ package net.viperfish.testWebCrawler;
 
 import java.io.IOException;
 import java.net.URL;
-import net.viperfish.crawler.html.BaseHttpWebCrawler;
+import net.viperfish.crawler.html.HttpWebCrawler;
 import net.viperfish.crawler.html.engine.ConcurrentHttpFetcher;
 import net.viperfish.crawler.html.tagProcessors.ALinkTagProcessor;
 import net.viperfish.crawler.html.tagProcessors.EmphasizedTagProcessor;
@@ -13,10 +13,10 @@ import xmlDao.XMLDataSink;
 
 public class CrawlSite {
 
-	public static void main(String argv[]) throws IOException {
+	public static void main(String argv[]) throws IOException, InterruptedException {
 		XMLDataSink out = new XMLDataSink("out");
 		out.init();
-		BaseHttpWebCrawler crawler = new BaseHttpWebCrawler(out,
+		HttpWebCrawler crawler = new HttpWebCrawler(out,
 			new ConcurrentHttpFetcher(6));
 		crawler.setCrawlChecker(new InMemoryCrawlChecker());
 		crawler.limitToHost(true);
