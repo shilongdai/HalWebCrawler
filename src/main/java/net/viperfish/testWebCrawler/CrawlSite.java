@@ -13,11 +13,11 @@ import xmlDao.XMLDataSink;
 
 public class CrawlSite {
 
-	public static void main(String argv[]) throws IOException, InterruptedException {
+	public static void main(String argv[]) throws IOException {
 		XMLDataSink out = new XMLDataSink("out");
 		out.init();
 		BaseHttpWebCrawler crawler = new BaseHttpWebCrawler(out,
-			new ConcurrentHttpFetcher(1));
+			new ConcurrentHttpFetcher(6));
 		crawler.setCrawlChecker(new InMemoryCrawlChecker());
 		crawler.limitToHost(true);
 		crawler.registerProcessor("link", new ALinkTagProcessor());
