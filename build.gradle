@@ -15,9 +15,9 @@ mainClassName = 'net.viperfish.testWebCrawler.CrawlSite'
 
 // In this section you declare where to find the dependencies of your project
 repositories {
-    // Use jcenter for resolving your dependencies.
-    // You can declare any Maven/Ivy/file repository here.
-    jcenter()
+	// Use jcenter for resolving your dependencies.
+	// You can declare any Maven/Ivy/file repository here.
+	jcenter()
 }
 
 dependencies {
@@ -27,4 +27,4 @@ dependencies {
 }
 
 
-applicationDefaultJvmArgs = ["-Dcom.sun.management.jmxremote.port=9005","-Dcom.sun.management.jmxremote.authenticate=false","-Dcom.sun.management.jmxremote.ssl=false","-Xmx8192m"]
+applicationDefaultJvmArgs = ["-Dcom.sun.management.jmxremote.port=9005", "-Dcom.sun.management.jmxremote.authenticate=false", "-Dcom.sun.management.jmxremote.ssl=false", "-Xmx8192m"]
