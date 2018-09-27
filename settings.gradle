@@ -15,7 +15,7 @@ include 'api'
 include 'services:webservice'
 */
 
-rootProject.name = 'testWebCrawler'
+rootProject.name = 'crawlerApp'
 
 include ":halCrawler"
 project(":halCrawler").projectDir = file("../HalCrawler")

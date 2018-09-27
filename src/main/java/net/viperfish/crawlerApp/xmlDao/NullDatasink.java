@@ -1,4 +1,4 @@
-package xmlDao;
+package net.viperfish.crawlerApp.xmlDao;
 
 import net.viperfish.crawler.core.Datasink;
 import net.viperfish.crawler.html.Site;
@@ -20,5 +20,10 @@ public class NullDatasink implements Datasink<Site> {
 	@Override
 	public void close() {
 		isClosed = true;
+	}
+
+	@Override
+	public void init() {
+
 	}
 }

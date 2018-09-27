@@ -1,4 +1,4 @@
-package xmlDao;
+package net.viperfish.crawlerApp.xmlDao;
 
 import java.io.BufferedOutputStream;
 import java.io.File;

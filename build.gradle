@@ -11,7 +11,7 @@ apply plugin: 'application'
 apply plugin: "eclipse"
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
-mainClassName = 'net.viperfish.testWebCrawler.CrawlSite'
+mainClassName = 'net.viperfish.crawlerApp.CrawlSite'
 
 // In this section you declare where to find the dependencies of your project
 repositories {
