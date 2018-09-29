@@ -30,7 +30,7 @@ public class TestModuleManager {
 		ResolvedComponent<TagProcessor> textSection = manager.getTagProcessor("text_section");
 		Assert.assertTrue(textSection.getComponent() instanceof TextSectionProcessor);
 		Assert.assertEquals("text_section", textSection.getName());
-		Assert.assertEquals(null, textSection.getDatasinlDependency());
+		Assert.assertEquals(null, textSection.getDatasinkDependency());
 		Assert.assertEquals(null, textSection.getFetcherDependency());
 		Assert.assertEquals(null, textSection.getRestrictionManagerDependency());
 	}
@@ -41,7 +41,7 @@ public class TestModuleManager {
 			.getHttpHandler("inMem_crawlChecker");
 		Assert.assertTrue(textSection.getComponent() instanceof BaseInMemCrawlHandler);
 		Assert.assertEquals("inMem_crawlChecker", textSection.getName());
-		Assert.assertEquals(null, textSection.getDatasinlDependency());
+		Assert.assertEquals(null, textSection.getDatasinkDependency());
 		Assert.assertEquals(null, textSection.getFetcherDependency());
 		Assert.assertEquals(null, textSection.getRestrictionManagerDependency());
 	}
@@ -51,7 +51,7 @@ public class TestModuleManager {
 		ResolvedComponent<Datasink<? super Site>> textSection = manager.newDatasink("xml_sink");
 		Assert.assertTrue(textSection.getComponent() instanceof Datasink);
 		Assert.assertEquals("xml_sink", textSection.getName());
-		Assert.assertEquals(null, textSection.getDatasinlDependency());
+		Assert.assertEquals(null, textSection.getDatasinkDependency());
 		Assert.assertEquals(null, textSection.getFetcherDependency());
 		Assert.assertEquals(null, textSection.getRestrictionManagerDependency());
 	}
@@ -62,7 +62,7 @@ public class TestModuleManager {
 			.getRestrictionManager("yesManager");
 		Assert.assertTrue(textSection.getComponent() instanceof UnrestrictiveRestrictionManager);
 		Assert.assertEquals("yesManager", textSection.getName());
-		Assert.assertEquals(null, textSection.getDatasinlDependency());
+		Assert.assertEquals(null, textSection.getDatasinkDependency());
 		Assert.assertEquals(null, textSection.getFetcherDependency());
 		Assert.assertEquals(null, textSection.getRestrictionManagerDependency());
 	}
@@ -73,14 +73,14 @@ public class TestModuleManager {
 
 		Assert.assertTrue(fetcher.getComponent() instanceof ConcurrentHttpFetcher);
 		Assert.assertEquals("concurrentFetcher", fetcher.getName());
-		Assert.assertEquals(null, fetcher.getDatasinlDependency());
+		Assert.assertEquals(null, fetcher.getDatasinkDependency());
 		Assert.assertEquals(null, fetcher.getFetcherDependency());
 
 		ResolvedComponent<RestrictionManager> managerDep = fetcher
 			.getRestrictionManagerDependency();
 		Assert.assertEquals("yesManager", managerDep.getName());
 		Assert.assertTrue(managerDep.getComponent() instanceof UnrestrictiveRestrictionManager);
-		Assert.assertEquals(null, managerDep.getDatasinlDependency());
+		Assert.assertEquals(null, managerDep.getDatasinkDependency());
 		Assert.assertEquals(null, managerDep.getFetcherDependency());
 		Assert.assertEquals(null, managerDep.getRestrictionManagerDependency());
 	}
