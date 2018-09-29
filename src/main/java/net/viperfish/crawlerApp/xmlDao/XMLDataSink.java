@@ -72,7 +72,6 @@ public class XMLDataSink implements Datasink<Site> {
 
 	@Override
 	public void write(Site data) throws IOException {
-		System.out.println("Crawled:" + data.getUrl().toExternalForm());
 		XMLOutputter xmlOutputter = new XMLOutputter(Format.getPrettyFormat());
 		File toWrite = Files.createFile(
 			Paths.get(outDir.getCanonicalPath(), Long.toString(currentID.getAndIncrement())))

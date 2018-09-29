@@ -1,14 +1,16 @@
 package net.viperfish.crawlerApp.core;
 
 import java.util.Collection;
-import javax.xml.ws.spi.http.HttpHandler;
+import java.util.Map;
 import net.viperfish.crawler.core.Datasink;
+import net.viperfish.crawler.html.HttpCrawlerHandler;
 import net.viperfish.crawler.html.HttpFetcher;
 import net.viperfish.crawler.html.RestrictionManager;
 import net.viperfish.crawler.html.Site;
 import net.viperfish.crawler.html.TagProcessor;
 import net.viperfish.crawlerApp.exceptions.ModuleLoadingException;
 import net.viperfish.crawlerApp.exceptions.ModuleUnloadingException;
+import net.viperfish.crawlerApp.exceptions.UnsupportedComponentException;
 
 public interface CrawlerModule {
 
@@ -24,25 +26,37 @@ public interface CrawlerModule {
 
 	Collection<String> getHttpFetchers();
 
-	TagProcessor getTagProcessor(String name) throws Exception;
+	TagProcessor getTagProcessor(String name,
+		Map<DependencyType, ResolvedComponent<?>> dependencies) throws Exception;
 
-	HttpHandler getHttpHandler(String name) throws Exception;
+	HttpCrawlerHandler getHttpHandler(String name,
+		Map<DependencyType, ResolvedComponent<?>> dependencies) throws Exception;
 
-	HttpFetcher getHttpFetcher(String name) throws Exception;
+	HttpFetcher getHttpFetcher(String name, Map<DependencyType, ResolvedComponent<?>> dependencies)
+		throws Exception;
 
-	Datasink<? super Site> newDatasink(String name) throws Exception;
+	Datasink<? super Site> newDatasink(String name,
+		Map<DependencyType, ResolvedComponent<?>> dependencies) throws Exception;
 
-	RestrictionManager getRestrictionManager(String name) throws Exception;
+	RestrictionManager getRestrictionManager(String name,
+		Map<DependencyType, ResolvedComponent<?>> dependencies) throws Exception;
 
-	void configTagProcessor(String name);
+	Map<DependencyType, String> getTagProcessorDependencies(String name)
+		throws UnsupportedComponentException;
 
-	void configHttpHandler(String name);
+	Map<DependencyType, String> getHttpHandlerDependencies(String name)
+		throws UnsupportedComponentException;
 
-	void configHttpFetcher(String name);
+	Map<DependencyType, String> getHttpFetcherDependencies(String name)
+		throws UnsupportedComponentException;
 
-	void configDatasink(String name);
+	Map<DependencyType, String> getDatasinkDependencies(String name)
+		throws UnsupportedComponentException;
 
-	void configRestrictionManager(String name);
+	Map<DependencyType, String> getRestrictionManagerDependencies(String name)
+		throws UnsupportedComponentException;
+
+	void config();
 
 	void init() throws ModuleLoadingException;
 
