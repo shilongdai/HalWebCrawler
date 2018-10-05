@@ -18,6 +18,7 @@ import net.viperfish.crawler.html.Anchor;
 import net.viperfish.crawler.html.CrawledData;
 import net.viperfish.crawler.html.EmphasizedTextContent;
 import net.viperfish.crawler.html.Header;
+import net.viperfish.crawler.html.Site;
 import net.viperfish.crawler.html.TextContent;
 import org.jdom2.CDATA;
 import org.jdom2.Document;
