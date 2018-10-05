@@ -1,4 +1,4 @@
-package net.viperfish.crawlerApp.core;
+package net.viperfish.halService.module;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -11,10 +11,7 @@ import net.viperfish.crawler.core.ORMLiteDatabase;
 import net.viperfish.crawler.html.HttpCrawlerHandler;
 import net.viperfish.crawler.html.HttpFetcher;
 import net.viperfish.crawler.html.RestrictionManager;
-import net.viperfish.crawler.html.Site;
-import net.viperfish.crawler.html.SiteDatabase;
 import net.viperfish.crawler.html.TagProcessor;
-import net.viperfish.crawler.html.crawlChecker.BaseDBCrawlHandler;
 import net.viperfish.crawler.html.crawlChecker.BaseInMemCrawlHandler;
 import net.viperfish.crawler.html.crawlChecker.NoCrawlChecker;
 import net.viperfish.crawler.html.crawlChecker.YesCrawlChecker;
@@ -22,13 +19,13 @@ import net.viperfish.crawler.html.dao.SiteDatabaseImpl;
 import net.viperfish.crawler.html.engine.ConcurrentHttpFetcher;
 import net.viperfish.crawler.html.restrictions.RobotsTxtRestrictionManager;
 import net.viperfish.crawler.html.restrictions.UnrestrictiveRestrictionManager;
-import net.viperfish.crawler.html.tagProcessors.ALinkTagProcessor;
-import net.viperfish.crawler.html.tagProcessors.EmphasizedTagProcessor;
-import net.viperfish.crawler.html.tagProcessors.HeaderTagProcessor;
-import net.viperfish.crawler.html.tagProcessors.TextSectionProcessor;
-import net.viperfish.crawler.html.tagProcessors.TitileTagProcessor;
-import net.viperfish.crawlerApp.exceptions.UnsupportedComponentException;
-import net.viperfish.crawlerApp.xmlDao.XMLDataSink;
+import net.viperfish.halService.core.ALinkTagProcessor;
+import net.viperfish.halService.core.EmphasizedTagProcessor;
+import net.viperfish.halService.core.HeaderTagProcessor;
+import net.viperfish.halService.core.TextSectionProcessor;
+import net.viperfish.halService.core.TitileTagProcessor;
+import net.viperfish.halService.dao.XMLDataSink;
+import net.viperfish.halService.exceptions.UnsupportedComponentException;
 
 public class BuiltInModule implements CrawlerModule {
 

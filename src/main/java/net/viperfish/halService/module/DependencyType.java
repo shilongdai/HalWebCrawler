@@ -1,4 +1,4 @@
-package net.viperfish.crawlerApp.core;
+package net.viperfish.halService.module;
 
 /**
  * Types of dependencies. Each type represents a singular component required by the crawler.

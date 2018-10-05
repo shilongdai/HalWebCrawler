@@ -1,4 +1,4 @@
-package net.viperfish.crawlerApp;
+package net.viperfish.halService;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -17,15 +17,14 @@ import net.viperfish.crawler.html.HttpCrawlerHandler;
 import net.viperfish.crawler.html.HttpFetcher;
 import net.viperfish.crawler.html.HttpWebCrawler;
 import net.viperfish.crawler.html.RestrictionManager;
-import net.viperfish.crawler.html.Site;
 import net.viperfish.crawler.html.TagProcessor;
-import net.viperfish.crawlerApp.core.BuiltInModule;
-import net.viperfish.crawlerApp.core.CrawlerModuleLoader;
-import net.viperfish.crawlerApp.core.DependencyType;
-import net.viperfish.crawlerApp.core.ModuleDirJarLoader;
-import net.viperfish.crawlerApp.core.ModuleManager;
-import net.viperfish.crawlerApp.core.ResolvedComponent;
-import net.viperfish.crawlerApp.exceptions.ModuleLoadingException;
+import net.viperfish.halService.exceptions.ModuleLoadingException;
+import net.viperfish.halService.module.BuiltInModule;
+import net.viperfish.halService.module.CrawlerModuleLoader;
+import net.viperfish.halService.module.DependencyType;
+import net.viperfish.halService.module.ModuleDirJarLoader;
+import net.viperfish.halService.module.ModuleManager;
+import net.viperfish.halService.module.ResolvedComponent;
 
 public class CrawlSite {
 
@@ -102,8 +101,11 @@ public class CrawlSite {
 			System.out.println("Done");
 			crawler.shutdown();
 			moduleManager.cleanup();
+			fetcher.close();
+			sink.close();
 		} catch (Exception e) {
 			System.out.println("Critical Failure:" + e.getMessage());
+			e.printStackTrace();
 			return;
 		}
 	}

@@ -1,4 +1,4 @@
-package net.viperfish.crawlerApp.exceptions;
+package net.viperfish.halService.exceptions;
 
 public class ModuleLoadingException extends Exception {
 

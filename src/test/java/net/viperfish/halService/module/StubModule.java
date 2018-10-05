@@ -1,4 +1,4 @@
-package net.viperfish.crawlerApp.core;
+package net.viperfish.halService.module;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -8,15 +8,14 @@ import net.viperfish.crawler.core.Datasink;
 import net.viperfish.crawler.html.HttpCrawlerHandler;
 import net.viperfish.crawler.html.HttpFetcher;
 import net.viperfish.crawler.html.RestrictionManager;
-import net.viperfish.crawler.html.Site;
 import net.viperfish.crawler.html.TagProcessor;
 import net.viperfish.crawler.html.crawlChecker.BaseInMemCrawlHandler;
 import net.viperfish.crawler.html.engine.ConcurrentHttpFetcher;
 import net.viperfish.crawler.html.restrictions.UnrestrictiveRestrictionManager;
 import net.viperfish.crawler.html.tagProcessors.ALinkTagProcessor;
 import net.viperfish.crawler.html.tagProcessors.TextSectionProcessor;
-import net.viperfish.crawlerApp.exceptions.UnsupportedComponentException;
 import net.viperfish.crawlerApp.xmlDao.XMLDataSink;
+import net.viperfish.halService.exceptions.UnsupportedComponentException;
 
 public class StubModule implements CrawlerModule {
 

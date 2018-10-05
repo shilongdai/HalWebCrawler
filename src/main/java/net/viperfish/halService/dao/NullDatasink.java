@@ -1,7 +1,6 @@
-package net.viperfish.crawlerApp.xmlDao;
+package net.viperfish.halService.dao;
 
 import net.viperfish.crawler.core.Datasink;
-import net.viperfish.crawler.html.Site;
 
 public class NullDatasink implements Datasink<Site> {
 

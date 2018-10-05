@@ -1,4 +1,4 @@
-package net.viperfish.crawlerApp.core;
+package net.viperfish.halService.module;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
-import net.viperfish.crawlerApp.exceptions.ModuleLoadingException;
+import net.viperfish.halService.exceptions.ModuleLoadingException;
 
 public class ModuleDirJarLoader implements CrawlerModuleLoader {
 
@@ -37,7 +37,7 @@ public class ModuleDirJarLoader implements CrawlerModuleLoader {
 							modules.add(load(path, jarFile));
 						}
 					} catch (IOException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-						return;
+						e.printStackTrace();
 					}
 				}
 			});
@@ -52,7 +52,7 @@ public class ModuleDirJarLoader implements CrawlerModuleLoader {
 		Enumeration<JarEntry> e = jarFile.entries();
 
 		URL[] urls = {new URL("jar:file:" + path2Jar.toString() + "!/")};
-		URLClassLoader cl = URLClassLoader.newInstance(urls);
+		URLClassLoader cl = new URLClassLoader(urls, this.getClass().getClassLoader());
 		String moduleClassname = "";
 		while (e.hasMoreElements()) {
 			JarEntry je = e.nextElement();
@@ -64,12 +64,11 @@ public class ModuleDirJarLoader implements CrawlerModuleLoader {
 			className = className.replace('/', '.');
 			Class c = cl.loadClass(className);
 			if (c.getSimpleName().equals("MainModule")) {
-				moduleClassname = className;
+				Object result = c.newInstance();
+				if (result instanceof CrawlerModule) {
+					return (CrawlerModule) result;
+				}
 			}
-		}
-		Object result = Class.forName(moduleClassname).newInstance();
-		if (result instanceof CrawlerModule) {
-			return (CrawlerModule) result;
 		}
 		return null;
 	}

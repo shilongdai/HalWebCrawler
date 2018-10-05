@@ -1,4 +1,4 @@
-package net.viperfish.crawlerApp.core;
+package net.viperfish.halService.module;
 
 import java.util.LinkedList;
 import java.util.List;

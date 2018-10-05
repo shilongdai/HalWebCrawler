@@ -1,4 +1,4 @@
-package net.viperfish.crawlerApp.core;
+package net.viperfish.halService.module;
 
 import java.util.Map;
 import java.util.Map.Entry;
@@ -6,7 +6,6 @@ import java.util.Objects;
 import net.viperfish.crawler.core.Datasink;
 import net.viperfish.crawler.html.HttpFetcher;
 import net.viperfish.crawler.html.RestrictionManager;
-import net.viperfish.crawler.html.Site;
 
 /**
  * A component of a modular system with its name and dependencies.

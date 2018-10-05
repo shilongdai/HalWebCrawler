@@ -1,7 +1,7 @@
-package net.viperfish.crawlerApp.core;
+package net.viperfish.halService.module;
 
 import java.util.List;
-import net.viperfish.crawlerApp.exceptions.ModuleLoadingException;
+import net.viperfish.halService.exceptions.ModuleLoadingException;
 
 /**
  * A loader that loads {@link CrawlerModule}.

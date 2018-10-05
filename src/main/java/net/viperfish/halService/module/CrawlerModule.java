@@ -1,4 +1,4 @@
-package net.viperfish.crawlerApp.core;
+package net.viperfish.halService.module;
 
 import java.util.Collection;
 import java.util.Map;
@@ -6,11 +6,10 @@ import net.viperfish.crawler.core.Datasink;
 import net.viperfish.crawler.html.HttpCrawlerHandler;
 import net.viperfish.crawler.html.HttpFetcher;
 import net.viperfish.crawler.html.RestrictionManager;
-import net.viperfish.crawler.html.Site;
 import net.viperfish.crawler.html.TagProcessor;
-import net.viperfish.crawlerApp.exceptions.ModuleLoadingException;
-import net.viperfish.crawlerApp.exceptions.ModuleUnloadingException;
-import net.viperfish.crawlerApp.exceptions.UnsupportedComponentException;
+import net.viperfish.halService.exceptions.ModuleLoadingException;
+import net.viperfish.halService.exceptions.ModuleUnloadingException;
+import net.viperfish.halService.exceptions.UnsupportedComponentException;
 
 /**
  * A module containing components for the HalCrawler web crawler library. It can be seen as a

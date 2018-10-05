@@ -1,4 +1,4 @@
-package net.viperfish.crawlerApp.xmlDao;
+package net.viperfish.halService.dao;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -16,9 +16,8 @@ import java.util.concurrent.atomic.AtomicLong;
 import net.viperfish.crawler.core.Datasink;
 import net.viperfish.crawler.html.Anchor;
 import net.viperfish.crawler.html.EmphasizedTextContent;
-import net.viperfish.crawler.html.Header;
-import net.viperfish.crawler.html.Site;
-import net.viperfish.crawler.html.TextContent;
+import net.viperfish.halService.core.Header;
+import net.viperfish.halService.core.TextContent;
 import org.jdom2.CDATA;
 import org.jdom2.Document;
 import org.jdom2.Element;
