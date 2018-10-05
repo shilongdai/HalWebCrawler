@@ -2,13 +2,13 @@ package net.viperfish.crawlerApp.core;
 
 import java.util.Collection;
 import net.viperfish.crawler.core.Datasink;
+import net.viperfish.crawler.html.CrawledData;
 import net.viperfish.crawler.html.HttpCrawlerHandler;
 import net.viperfish.crawler.html.HttpFetcher;
 import net.viperfish.crawler.html.RestrictionManager;
-import net.viperfish.crawler.html.Site;
+import net.viperfish.crawlerApp.exceptions.ComponentResolutionException;
 import net.viperfish.crawlerApp.exceptions.ModuleLoadingException;
 import net.viperfish.crawlerApp.exceptions.ModuleUnloadingException;
-import net.viperfish.crawlerApp.exceptions.UnsupportedComponentException;
 
 public interface CrawlerModule {
 
@@ -26,17 +26,17 @@ public interface CrawlerModule {
 
 	Collection<String> getHttpFetchers();
 
-	Component<Datasink<? extends Site>> getDatasink(String name)
-		throws UnsupportedComponentException;
+	Component<Datasink<? super CrawledData>> getDatasink(String name)
+		throws ComponentResolutionException;
 
-	Component<HttpFetcher> getFetcher(String name) throws UnsupportedComponentException;
+	Component<HttpFetcher> getFetcher(String name) throws ComponentResolutionException;
 
 	Component<RestrictionManager> getRestrictionManager(String name)
-		throws UnsupportedComponentException;
+		throws ComponentResolutionException;
 
-	Component<HttpCrawlerHandler> getHandler(String name) throws UnsupportedComponentException;
+	Component<HttpCrawlerHandler> getHandler(String name) throws ComponentResolutionException;
 
-	Component<?> getComponent(String name) throws UnsupportedComponentException;
+	Component<?> getComponent(String name) throws ComponentResolutionException;
 
 	void config();
 

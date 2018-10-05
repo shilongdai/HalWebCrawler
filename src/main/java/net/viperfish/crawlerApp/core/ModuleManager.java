@@ -6,10 +6,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import net.viperfish.crawler.core.Datasink;
+import net.viperfish.crawler.html.CrawledData;
 import net.viperfish.crawler.html.HttpCrawlerHandler;
 import net.viperfish.crawler.html.HttpFetcher;
 import net.viperfish.crawler.html.RestrictionManager;
-import net.viperfish.crawler.html.Site;
+import net.viperfish.crawlerApp.exceptions.ComponentResolutionException;
+import net.viperfish.crawlerApp.exceptions.ConflictingDependenciesException;
 import net.viperfish.crawlerApp.exceptions.DependencyException;
 import net.viperfish.crawlerApp.exceptions.ModuleLoadingException;
 import net.viperfish.crawlerApp.exceptions.ModuleUnloadingException;
@@ -104,21 +106,24 @@ public class ModuleManager implements CrawlerModule {
 	}
 
 	@Override
-	public Component<Datasink<? extends Site>> getDatasink(String name)
-		throws UnsupportedComponentException {
+	public Component<Datasink<? super CrawledData>> getDatasink(String name)
+		throws ComponentResolutionException {
 		for (CrawlerModule m : this.modules.values()) {
 			if (m.getDataSinks().contains(name)) {
-				return m.getDatasink(name);
+				Component<Datasink<? super CrawledData>> result = m.getDatasink(name);
+				resolveRoot(result);
 			}
 		}
 		throw new UnsupportedComponentException(name);
 	}
 
 	@Override
-	public Component<HttpFetcher> getFetcher(String name) throws UnsupportedComponentException {
+	public Component<HttpFetcher> getFetcher(String name) throws ComponentResolutionException {
 		for (CrawlerModule m : this.modules.values()) {
 			if (m.getHttpFetchers().contains(name)) {
-				return m.getFetcher(name);
+				Component<HttpFetcher> component = m.getFetcher(name);
+				resolveRoot(component);
+				return component;
 			}
 		}
 		throw new UnsupportedComponentException(name);
@@ -126,10 +131,12 @@ public class ModuleManager implements CrawlerModule {
 
 	@Override
 	public Component<RestrictionManager> getRestrictionManager(String name)
-		throws UnsupportedComponentException {
+		throws ComponentResolutionException {
 		for (CrawlerModule m : this.modules.values()) {
 			if (m.getRestrictionmanagers().contains(name)) {
-				return m.getRestrictionManager(name);
+				Component<RestrictionManager> component = m.getRestrictionManager(name);
+				resolveRoot(component);
+				return component;
 			}
 		}
 		throw new UnsupportedComponentException(name);
@@ -137,17 +144,19 @@ public class ModuleManager implements CrawlerModule {
 
 	@Override
 	public Component<HttpCrawlerHandler> getHandler(String name)
-		throws UnsupportedComponentException {
+		throws ComponentResolutionException {
 		for (CrawlerModule m : this.modules.values()) {
 			if (m.getHttpHandlers().contains(name)) {
-				return m.getHandler(name);
+				Component<HttpCrawlerHandler> component = m.getHandler(name);
+				resolveRoot(component);
+				return component;
 			}
 		}
 		throw new UnsupportedComponentException(name);
 	}
 
 	@Override
-	public Component<?> getComponent(String name) throws UnsupportedComponentException {
+	public Component<?> getComponent(String name) throws ComponentResolutionException {
 		for (CrawlerModule m : this.modules.values()) {
 			if (m.getComponents().contains(name)) {
 				return m.getComponent(name);
@@ -194,19 +203,29 @@ public class ModuleManager implements CrawlerModule {
 		return new HashMap<>(sessionTracker);
 	}
 
+	private void resolveRoot(Component<?> component) throws ComponentResolutionException {
+		for (String name : component.declareDependencies()) {
+			resolveDependencies(component.getName());
+		}
+	}
 
 	private Component<?> resolveDependencies(String name)
-		throws DependencyException {
-		List<String> compNames = component.declareDependencies();
-		for (String c : compNames) {
-			if (!sessionTracker.containsKey(name)) {
-				Component<?> dep = resolveDependencies(c);
-			} else {
-
-			}
-		}
+		throws ComponentResolutionException {
 		try {
-			return this.getComponent(name);
+			Component<?> component = this.getComponent(name);
+			List<String> compNames = component.declareDependencies();
+			for (String c : compNames) {
+				if (!sessionTracker.containsKey(name)) {
+					Component<?> dep = resolveDependencies(c);
+					sessionTracker.put(dep.getName(), dep);
+				} else {
+					Component<?> existingDependency = sessionTracker.get(name);
+					if (!existingDependency.getName().equals(name)) {
+						throw new ConflictingDependenciesException(name);
+					}
+				}
+			}
+			return component;
 		} catch (UnsupportedComponentException e) {
 			throw new DependencyException(e);
 		}

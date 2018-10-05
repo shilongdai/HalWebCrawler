@@ -1,6 +1,6 @@
 package net.viperfish.crawlerApp.exceptions;
 
-public class UnsupportedComponentException extends Exception {
+public class UnsupportedComponentException extends ComponentResolutionException {
 
 	public UnsupportedComponentException() {
 	}

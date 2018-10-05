@@ -1,6 +1,6 @@
 package net.viperfish.crawlerApp.exceptions;
 
-public class DependencyException extends Exception {
+public class DependencyException extends ComponentResolutionException {
 
 	public DependencyException() {
 	}

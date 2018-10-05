@@ -15,9 +15,9 @@ import java.util.Base64;
 import java.util.concurrent.atomic.AtomicLong;
 import net.viperfish.crawler.core.Datasink;
 import net.viperfish.crawler.html.Anchor;
+import net.viperfish.crawler.html.CrawledData;
 import net.viperfish.crawler.html.EmphasizedTextContent;
 import net.viperfish.crawler.html.Header;
-import net.viperfish.crawler.html.Site;
 import net.viperfish.crawler.html.TextContent;
 import org.jdom2.CDATA;
 import org.jdom2.Document;
@@ -26,7 +26,7 @@ import org.jdom2.Text;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 
-public class XMLDataSink implements Datasink<Site> {
+public class XMLDataSink implements Datasink<CrawledData> {
 
 	private File outDir;
 	private AtomicLong currentID;
@@ -71,7 +71,7 @@ public class XMLDataSink implements Datasink<Site> {
 	}
 
 	@Override
-	public void write(Site data) throws IOException {
+	public void write(CrawledData data) throws IOException {
 		XMLOutputter xmlOutputter = new XMLOutputter(Format.getPrettyFormat());
 		File toWrite = Files.createFile(
 			Paths.get(outDir.getCanonicalPath(), Long.toString(currentID.getAndIncrement())))
@@ -93,7 +93,7 @@ public class XMLDataSink implements Datasink<Site> {
 		closed = true;
 	}
 
-	private Document site2XML(Site in) {
+	private Document site2XML(CrawledData in) {
 		Element siteRoot = new Element("site");
 		Element checksum = new Element("checksum");
 		Element compressed = new Element("compressedHTML");
