@@ -43,7 +43,7 @@ public class StubModule implements CrawlerModule {
 	}
 
 	@Override
-	public Collection<String> getRestrictionManagers() {
+	public Collection<String> getRestrictionmanagers() {
 		return Arrays.asList("yesManager");
 	}
 

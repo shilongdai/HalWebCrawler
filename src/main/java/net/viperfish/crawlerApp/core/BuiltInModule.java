@@ -74,7 +74,7 @@ public class BuiltInModule implements CrawlerModule {
 	}
 
 	@Override
-	public Collection<String> getRestrictionManagers() {
+	public Collection<String> getRestrictionmanagers() {
 		List<String> supportedRestrictionMgr = new LinkedList<>();
 		supportedRestrictionMgr.add("robots_txt");
 		supportedRestrictionMgr.add("unrestrictive");

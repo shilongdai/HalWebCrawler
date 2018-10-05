@@ -24,7 +24,6 @@ import net.viperfish.crawlerApp.core.CrawlerModuleLoader;
 import net.viperfish.crawlerApp.core.DependencyType;
 import net.viperfish.crawlerApp.core.ModuleDirJarLoader;
 import net.viperfish.crawlerApp.core.ModuleManager;
-import net.viperfish.crawlerApp.core.ResolvedComponent;
 import net.viperfish.crawlerApp.exceptions.ModuleLoadingException;
 
 public class CrawlSite {
@@ -196,7 +195,7 @@ public class CrawlSite {
 			System.out.println("Selected Datasink for Dependency:" + restrictionMgrDep.getName());
 			return restrictionMgrDep.getComponent();
 		}
-		Map<Integer, String> fetcherList = col2NumberedMap(manager.getRestrictionManagers());
+		Map<Integer, String> fetcherList = col2NumberedMap(manager.getRestrictionmanagers());
 		System.out.println(SEPERATOR);
 		String selected = selectFromNumberedList(fetcherList, in);
 		System.out.println("Selected:" + selected);
